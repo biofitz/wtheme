@@ -1,0 +1,5 @@
+Имя: winner 
+Фамилия: mailer
+Логин: winnermailer@gmail.com
+Пароль: poweroverwhelming
+Дата рождения: 23 июнь 1988
