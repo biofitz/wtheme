@@ -38,6 +38,7 @@
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post();?> 
 
+	<!-- BEGIN #single_new_content_wrapper -->
 	<div id="single_new_content_wrapper">
 		<h1 class="single_new_title"><?php the_title(); ?></h1>
 
@@ -62,6 +63,7 @@
 			</p>
 		</div>
 	</div>
+	<!-- END #single_new_content_wrapper -->
 
 	<?php endwhile;?>  
 <?php endif;?> 

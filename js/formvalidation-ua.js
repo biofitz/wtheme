@@ -6,30 +6,30 @@ var V = new function(){
 	this.validSecondName = this.standard,
 	this.validThirdName = this.standard,
 	this.validEmail = /.+@.+\..+/i,
-	//this.validPhone = /^[\+]?[0-9]{1,}[0-9\x20\x28\x29\-]{6,}$/,
 	this.validPhone = /^[\+]{1,1}[0-9]{12,}$/,
 	this.validMessage = /^[0-9а-яА-ЯіІїЇєЄ ‘'`-]{5,}/,
-	this.validDriverLicense = /^[а-яА-ЯіІїЇєЄ]{1,}[а-яА-ЯіІїЇєЄ0-9 -]{6,}$/,
-	this.validDealer = /^[a-zA-Zа-яА-ЯіІїЇєЄ]{1,}[a-zA-Zа-яА-ЯіІїЇєЄ ‘'`-]{1,}$/,
+	this.validDealer = /^[a-zA-Zа-яА-ЯіІїЇєЄ]{1,}[a-zA-Zа-яА-ЯіІїЇєЄ0-9 .,‘'`-]{3,}$/,
+	this.validBrand = /^[a-zA-Zа-яА-ЯіІїЇєЄ]{1,}[a-zA-Zа-яА-ЯіІїЇєЄ ‘'`-]{1,}$/,
 
-	this.dataEmptyTopic = "виберіть тему звернення",
+	this.dataEmptyTopic = "оберіть тему звернення",
 	this.dataEmptyFirstName = "введіть ваше ім‘я",
 	this.dataEmptySecondName = "введіть ваше прізвище",
 	this.dataEmptyThirdName = "введіть ваше ім‘я по батькові",
 	this.dataEmptyPhone = "введіть телефон",
 	this.dataEmptyEmail = "введіть e-mail",
 	this.dataEmptyMessage = "введіть повідомлення",
-	this.dataEmptyDealer = "виберіть дилера",
+	this.dataEmptyDealer = "вкажіть дилера",
+	this.dataEmptyBrand = "оберіть бренд",
 
-	this.dataWrongTopic = "виберіть тему звернення",
+	this.dataWrongTopic = "оберіть тему звернення",
 	this.dataWrongFirstName = "введіть коректне ім‘я",
 	this.dataWrongSecondName = "введіть коректне прізвище",
 	this.dataWrongThirdName = "введіть коректне ім‘я по батькові",
-	this.dataWrongPhone = "введіть коректний телефон або залишіть поле порожнім",
+	this.dataWrongPhone = "введіть коректний телефон",
 	this.dataWrongEmail = "введіть коректний e-mail",
 	this.dataWrongMessage = "введіть коректне повідомлення",
-	this.dataWrongDriverLicense = "введіть коректний номер або залишіть поле порожнім",
-	this.dataWrongDealer = "виберіть дилера",
+	this.dataWrongDealer = "вкажіть дилера коректно",
+	this.dataWrongBrand = "оберіть бренд",
 	
 	this.validData = "",
 	this.validInfo = "",
@@ -86,11 +86,6 @@ function formValidation(form){
 		alertMessage = "checkout is full \n"; 
 	}
 	
-	var fieldPhone = form.find(".field_phone");
-	if(fieldPhone.length != 0 && fieldPhone.val().search(V.validPhone) == -1 && fieldPhone.val() != ""){
-		alertMessage += "missing: correct phone \n";
-	}
-	
 	var fieldDriverLicense = form.find(".field_driver_license");
 	if(fieldDriverLicense.length != 0 && fieldDriverLicense.val().search(V.validDriverLicense) == -1 && fieldDriverLicense.val() != ""){
 		alertMessage += "missing: correct driver`s license \n";
@@ -98,7 +93,9 @@ function formValidation(form){
 	
 	if(alertMessage != ""){
 		console.log(alertMessage);
-		fieldFocus(form);
+		
+		if(!form.hasClass("focus"))
+			fieldFocus(form);
 		
 		if($(window).innerWidth() < 680){
 			$("html, body").stop().animate({
@@ -136,67 +133,21 @@ function addClass(el){
 }
 	
 function fieldFocus(form){
+	form.addClass("focus");
+	
 	form.find(".field_required").on("input", function(){
-		fields($(this));
-		warning($(this));
+		if(form.hasClass("focus")){
+			fields($(this));
+			warning($(this));
+		}
 	});
 	
 	form.find(".field_required").on("change", function(){
-		fields($(this));
-		warning($(this));
-	});
-	
-	form.find(".field_phone").each(function(){
-		phoneCheck($(this));
-	});
-		
-	form.find(".field_phone").on("input", function(e){
-		phoneCheck($(this));
-	});
-	
-	form.find(".field_phone").focusout(function(){
-		var el = $(this);
-		
-		if(el.val() == "" || el.val() == "+38")
-			removeClass(el);
-	});
-	
-	function phoneCheck(el){
-		if(el.val().search(V.validPhone) == -1 && el.val() != ""){
-			addClass(el);
-			
-			el
-				.parent()
-				.find(".alarm")
-				.html(V.dataWrongPhone);
+		if(form.hasClass("focus")){
+			fields($(this));
+			warning($(this));
 		}
-		else
-			removeClass(el);
-		
-		if(el.val() == "+38")
-			removeClass(el);
-	}
-	
-	form.find(".field_driver_license").each(function(){
-		driverLicenseCheck($(this));
 	});
-		
-	form.find(".field_driver_license").on("input", function(){
-		driverLicenseCheck($(this));
-	});
-	
-	function driverLicenseCheck(el){
-		if(el.val().search(V.validDriverLicense) == -1 && el.val() != ""){
-			addClass(el);
-			
-			el
-				.parent()
-				.find(".alarm")
-				.html(V.dataWrongDriverLicense);
-		}
-		else
-			removeClass(el);
-	}
 }
 
 //Fields checking
@@ -237,17 +188,23 @@ function fields(field){
 		V.validData = V.validEmail;
 		V.alertItem = "e-mail";
 	}
-	if(field.hasClass("field_message")){
-		V.validInfo = V.dataWrongMessage;
-		V.validEmpty = V.dataEmptyMessage;
-		V.validData = V.validMessage;
-		V.alertItem = "message";
+	if(field.hasClass("field_brand")){
+		V.validInfo = V.dataWrongBrand;
+		V.validEmpty = V.dataEmptyBrand;
+		V.validData = V.validBrand;
+		V.alertItem = "brand";
 	}
 	if(field.hasClass("field_dealer")){
 		V.validInfo = V.dataWrongDealer;
 		V.validEmpty = V.dataEmptyDealer;
 		V.validData = V.validDealer;
 		V.alertItem = "dealer";
+	}
+	if(field.hasClass("field_message")){
+		V.validInfo = V.dataWrongMessage;
+		V.validEmpty = V.dataEmptyMessage;
+		V.validData = V.validMessage;
+		V.alertItem = "message";
 	}
 }
 
@@ -280,33 +237,24 @@ function sendForm(form, url){
         success: function(response){
 			console.log("response from server: " + response);
 			
-			function thnxShow(){
-				$("#form_preloader").fadeOut(300);
-				
-				$("#form_pop_wrapper").fadeIn(300);
-				
-				$("#form_close").click(function(){
-					$("#form_pop_wrapper").fadeOut(300);
-				});
-				
-				$("#form_popup_cover").click(function(){
-					$("#form_pop_wrapper").fadeOut(300);
-				});
-				
-				$("#form_popup_cover").on("touchend", function(){
-					$("#form_pop_wrapper").fadeOut(300);
-				});
-			}
+			form.removeClass("focus");
 			
 			form.find(".field").each(function(){
 				if(!$(this).hasClass("ne")){
 					if($(this).hasClass("field_date_of_appeal"))
 						$(this).val("не вказано");
+					if($(this).hasClass("field_date_of_appeal"))
+						$(this).val("не вказано");
 					else
 						$(this).val("");
 				}
-				
-				$(".calendar_item").removeClass("active");
+			});
+			
+			$(".calendar_item").removeClass("active");
+			
+			var selectElements = form.find("select").each(function(){
+				console.log($(this).find("option:first"));
+				console.log($(this).find("option:first").prop("selected", true));
 			});
 		
 			if(response == "Sent"){
@@ -341,4 +289,10 @@ function sendForm(form, url){
 			location.reload();
     	}
  	});
+}
+
+//"Thank you" pop-up open
+function thnxShow(){
+	$("#form_preloader").fadeOut(300);
+	$("#form_pop_wrapper").fadeIn(300);
 }

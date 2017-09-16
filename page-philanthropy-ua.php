@@ -161,25 +161,43 @@
 				<p class="input_title">Дата*</p>
 			</div>
 			<div class="right_part">
-				<div class="field_wrapper calendar_block charity_calendar">
-					<table class="calendar">
-						<thead>
-							<tr>
-								<td class="calendar_month calendar_month_ua" colspan="7"><a href="#" class="prev_month">&lsaquo;</a><span class="cmn"></span><a href="#" class="next_month">&rsaquo;</a></td>
-							</tr>
-							<tr>
-								<td class="calendar_year" colspan="7"></td>
-							</tr>
-							<tr>
-								<td class="empty_td" colspan="7"></td>
-							</tr>
-							<tr class="days days_ua"><td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td>Сб</td><td>Нд</td></tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-					
-					<input class="field field_required field_date_of_appeal field_charity_date" name="date_of_charity" type="hidden" value="не вказано" />
-					<p class="alarm alarm_charity_date"></p>
+				<div class="field_wrapper">
+					<div id="charity_calendar_owner_block">
+						<div class="field_wrapper">
+							<div id="charity_calendar_owner_field" class="field">
+								<img id="calendar_icon" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/calendar_icon.svg" alt="" />
+								<img id="charity_calendar_box_tick" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/tick_blue.svg" alt="" />
+								
+								<span id="charity_calendar_box_text">Оберіть дату</span>
+							</div>
+							
+							<p class="alarm alarm_charity_date"></p>
+							
+							<div id="charity_calendar_box" class="calendar_block charity_calendar">
+								<img id="charity_calendar_box_close" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/close_cross.svg" alt="закрити" />
+								
+								<div id="charity_calendar_box_inner">
+									<table class="calendar">
+										<thead>
+											<tr>
+												<td class="calendar_month calendar_month_ua" colspan="7"><a href="#" class="prev_month">&lsaquo;</a><span class="cmn"></span><a href="#" class="next_month">&rsaquo;</a></td>
+											</tr>
+											<tr>
+												<td class="calendar_year" colspan="7"></td>
+											</tr>
+											<tr>
+												<td class="empty_td" colspan="7"></td>
+											</tr>
+											<tr class="days days_ua"><td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td>Сб</td><td>Нд</td></tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+								
+								<input class="field field_required field_date_of_appeal field_charity_date" name="date_of_charity" type="hidden" value="не вказано" />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

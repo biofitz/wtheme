@@ -35,9 +35,6 @@
 	</div>
 </div>
 
-
-
-<!-- second commit -->
 <?php wp_footer(); ?>
 
 <div id="memory">

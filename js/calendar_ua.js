@@ -71,6 +71,8 @@ function createCalendar(innerYear, innerMonth, innerDay){
 				createCalendar(innerYear, innerMonth-1, 1);
 			
 			$(this).closest(".calendar_block").find(".field_date_of_appeal").val("не вказано");
+			
+			$("#charity_calendar_box_text").text("Оберіть дату");
 				
 			changed = true;
 		}
@@ -89,6 +91,8 @@ function createCalendar(innerYear, innerMonth, innerDay){
 			
 			$(this).closest(".calendar_block").find(".field_date_of_appeal").val("не вказано");
 			
+			$("#charity_calendar_box_text").text("Оберіть дату");
+			
 			changed = true;
 		}
 	});
@@ -105,12 +109,60 @@ function createCalendar(innerYear, innerMonth, innerDay){
 		if(el.hasClass("active")){
 			el.removeClass("active");
 			date = "не вказано";
+			
+			$("#charity_calendar_box_text").text("Оберіть дату");
 		}
 		
 		else{
 			$(".calendar_item").removeClass("active");
 			el.addClass("active");
-			date = "число: " + el.text() + "; місяць: " + el.closest(".calendar").find(".cmn").text() + "; рік: " + el.closest(".calendar").find(".calendar_year").text();
+			
+			var monthWord = el.closest(".calendar").find(".cmn").text(),
+				monthNum;
+			
+			switch(monthWord){
+				case "січень":
+					monthNum = "01";
+					break;
+				case "лютий":
+					monthNum = "02";
+					break;
+				case "березень":
+					monthNum = "03";
+					break;
+				case "квітень":
+					monthNum = "04";
+					break;
+				case "травень":
+					monthNum = "05";
+					break;
+				case "червень":
+					monthNum = "06";
+					break;
+				case "липень":
+					monthNum = "07";
+					break;
+				case "серпень":
+					monthNum = "08";
+					break;
+				case "вересень":
+					monthNum = "09";
+					break;
+				case "жовтень":
+					monthNum = "10";
+					break;
+				case "листопад":
+					monthNum = "11";
+					break;
+				case "грудень":
+					monthNum = "12";
+					break;
+			}
+			
+			var zero = (el.text() < 10) ? "0" : "";
+			date = zero + el.text() + "." + monthNum + "." +  el.closest(".calendar").find(".calendar_year").text();
+			
+			$("#charity_calendar_box_text").text(date);
 		}
 		
 		el.closest(".calendar_block").find(".field_date_of_appeal").val(date);

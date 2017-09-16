@@ -3,8 +3,8 @@ header("Content-type: text/html; charset=utf-8");
 require_once ("../vendor/autoload.php");
 
 if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
-	//$to = "biofitz2@gmail.com";
-	$to = "feedback_form@winner.ua";
+	$to = "biofitz2@gmail.com";
+	//$to = "feedback_form@winner.ua";
 	$date = date("d.m.y");
 	$time = date("H:i");
 	$form_choose = strip_tags(trim($_POST["form_choose"]));
@@ -15,8 +15,8 @@ if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
 	$email = strip_tags(trim($_POST["email"]));
 	$phone = strip_tags(trim($_POST["phone"]));
 	$text_message = strip_tags(trim($_POST["message"]));
-	$driver_license = strip_tags(trim($_POST["driver_license"]));
 	$dealer = strip_tags(trim($_POST["dealer"]));
+	$brand = strip_tags(trim($_POST["brand"]));
 	$date_of_appeal = strip_tags(trim($_POST["date_of_appeal"]));
 	$url = strip_tags(trim($_POST["url"]));
 	$ref = strip_tags(trim($_POST['ref']));
@@ -42,7 +42,7 @@ if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
 					<p>E-mail: " . $email . "</p>
 					<p>Телефон: " . $phone . "</p>
 					<p>Текст звернення: " . $text_message . "</p>
-					<p>Номер водійських прав: " . $driver_license . "</p>
+					<p>Бренд: " . $brand . "</p>
 					<p>Дилер: " . $dealer . "</p>
 					<p>Дата звернення до дилера: " . $date_of_appeal . "</p>
 					<p>URL гостя: " . $url . "</p>

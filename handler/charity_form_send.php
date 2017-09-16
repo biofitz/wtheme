@@ -3,8 +3,8 @@ header("Content-type: text/html; charset=utf-8");
 require_once ("../vendor/autoload.php");
 
 if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
-	//$to = "biofitz2@gmail.com";
-	$to = "feedback_form@winner.ua";
+	$to = "biofitz2@gmail.com";
+	//$to = "feedback_form@winner.ua";
 	$date = date("d.m.y");
 	$time = date("H:i");
 	
@@ -57,8 +57,8 @@ if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
 					<p>Номер рахунку одержувача: " . $account_number_of_the_recipient . "</p>
 					<p>Валюта рахунку: " . $account_currency . "</p>
 					<p>Опишіть свій проект чи інакше використання коштів: " . $project_description . "</p>
-					<p>Які результати очікуються від фінансування?: " . $project_results . "</p>
-					<p>Яким чином будуть вимірюватися результати?: " . $results_measuring_method . "</p>
+					<p>Які результати очікуються від фінансування: " . $project_results . "</p>
+					<p>Яким чином будуть вимірюватися результати: " . $results_measuring_method . "</p>
 					<p>Очікувана сума фінансування: " . $amount_of_financing . "</p>
 					<p>Інший вид допомоги: " . $another_kind_of_help . "</p>
 					<p>URL гостя: " . $url . "</p>

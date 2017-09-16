@@ -15,8 +15,7 @@ function goDealerForm(){
 //Variables
 var DV = new function(){
 	this.files = {},
-	this.extension = /.rar$|.zip$/i,
-	//this.extension = /.zip$/i,
+	this.extension = /.zip$/i,
 	this.canSend = true
 }
 

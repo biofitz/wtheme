@@ -146,7 +146,7 @@
 		
 		<p class="form_clue">Fields marked * are required.</p>
 		
-		<div class="charity_form_part_block">
+		<!--<div class="charity_form_part_block">
 			<div class="left_part">
 				<p class="input_title">Date*</p>
 			</div>
@@ -170,6 +170,52 @@
 					
 					<input class="field field_required field_date_of_appeal field_charity_date" name="date_of_charity" type="hidden" value="не вказано" />
 					<p class="alarm alarm_charity_date"></p>
+				</div>
+			</div>
+		</div>-->
+		
+		<div class="charity_form_part_block">
+			<div class="left_part">
+				<p class="input_title">Date*</p>
+			</div>
+			<div class="right_part">
+				<div class="field_wrapper">
+					<div id="charity_calendar_owner_block">
+						<div class="field_wrapper">
+							<div id="charity_calendar_owner_field" class="field">
+								<img id="calendar_icon" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/calendar_icon.svg" alt="" />
+								<img id="charity_calendar_box_tick" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/tick_blue.svg" alt="" />
+								
+								<span id="charity_calendar_box_text">Select a date</span>
+							</div>
+							
+							<p class="alarm alarm_charity_date"></p>
+							
+							<div id="charity_calendar_box" class="calendar_block charity_calendar">
+								<img id="charity_calendar_box_close" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/close_cross.svg" alt="close" />
+								
+								<div id="charity_calendar_box_inner">
+									<table class="calendar">
+										<thead>
+											<tr>
+												<td class="calendar_month calendar_month_en" colspan="7"><a href="#" class="prev_month">&lsaquo;</a><span class="cmn"></span><a href="#" class="next_month">&rsaquo;</a></td>
+											</tr>
+											<tr>
+												<td class="calendar_year" colspan="7"></td>
+											</tr>
+											<tr>
+												<td class="empty_td" colspan="7"></td>
+											</tr>
+											<tr class="days days_en"><td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td></tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+								
+								<input class="field field_required field_date_of_appeal field_charity_date" name="date_of_charity" type="hidden" value="не вказано" />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

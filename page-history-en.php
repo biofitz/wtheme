@@ -433,6 +433,24 @@
 				
 				<div class="part_parent_block">
 					<div class="part left_part">
+						<p class="history_date">2015</p>
+					
+						<div class="history_content_block">
+							<div class="history_content_block_text">
+								<h2 class="brand_h2">
+									"Winner" launches a new "Wave" strategy with a confidence in the further growth of Ukraine's economy and holds <span class="nowrap">large-scale</span> meetings of all employees
+								</h2>
+							</div>
+							<div class="history_img_block">
+								<img class="pl-25" src="<?php bloginfo('stylesheet_directory'); ?>/img/history/history_img_3_0.jpg" alt="" />
+							</div>
+						</div>
+					</div>
+					<div class="part"></div>
+				</div>
+				
+				<div class="part_parent_block">
+					<div class="part right_part">
 						<p class="history_date">2016</p>
 					
 						<div class="history_content_block">
@@ -454,7 +472,7 @@
 				</div>
 				
 				<div class="part_parent_block">
-					<div class="part right_part">
+					<div class="part left_part">
 						<p class="history_date">2017</p>
 					
 						<div class="history_content_block">
@@ -476,8 +494,8 @@
 				</div>
 				
 				<div class="part_parent_block">
-					<div class="part left_part">
-						<p class="history_date">2019</p>
+					<div class="part right_part">
+						<p class="history_date"><span>2018</span><span class="c"> - </span><span>2019</span></p>
 					
 						<div class="history_content_block">
 							<div class="history_content_block_text">

@@ -23,8 +23,8 @@ if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
 	$data = $error ? array("error" => "Помилка завантаження файлу.") : "";
 
 
-	//$to = "biofitz2@gmail.com";
-	$to = "nd_team@winner.ua";
+	$to = "biofitz2@gmail.com";
+	//$to = "nd_team@winner.ua";
 	$date = date("d.m.y");
 	$time = date("H:i");
 	$file_path = $filePath;

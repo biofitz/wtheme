@@ -188,20 +188,6 @@
 </div>
 <!-- END #finance_content_wrapper -->
 
-<!-- BEGIN #finance_page_last_screen -->
-<div id="finance_page_last_screen">
-	<h2 class="brand_h2">
-		To read the currency exchange archive,<br/>
-		please refer to the link
-	</h2>
-	
-	<a id="currency_archive_btn" class="button_blue" href="<?php bloginfo('stylesheet_directory'); ?>/docs/currency/currency-archive-en.pdf" target="_blank">
-		<span class="button_blue_cover"></span>
-		<span class="button_blue_text">Archive of currencies</span>
-	</a>
-</div>
-<!-- END #finance_page_last_screen -->
-
 <?php get_sidebar("footer-en");?>
 
 <script src="<?php bloginfo('stylesheet_directory'); ?>/js/jquery-2.1.4.min.js"></script>

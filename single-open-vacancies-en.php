@@ -41,7 +41,7 @@
 			</p>
 			<p>
 				If you correspond to all the above mentioned requirements and want to be a part of "Winner" team, you need to download the form below,
-				fill it out offline and send it in the RAR or ZIP archive.
+				fill it out offline and send it in the ZIP archive.
 			</p>
 			<p id="dealer_link_p">
 				<a href="<?php bloginfo('stylesheet_directory'); ?>/docs/become-a-dealer-form/Become-a-Dealer.docx">Download the CV form</a>
@@ -53,7 +53,7 @@
 				<div class="field_wrapper dealer_file_wrapper">
 					<input id="dealer_file" type="file"/>
 					<label for="dealer_file" id="field_dealer_button" class="field">Attach the archive <img src="<?php bloginfo('stylesheet_directory'); ?>/img/general/file_arrow.png" alt=""/></label>
-					<p class="alarm dealer_alarm_file">valid extension: RAR or ZIP</p>
+					<p class="alarm dealer_alarm_file">valid extension: ZIP</p>
 				</div>
 				
 				<a id="dealer_upload_btn" class="simple_form_go dealer_form_go button_blue" href="#">

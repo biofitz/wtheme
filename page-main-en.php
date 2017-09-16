@@ -95,8 +95,8 @@
 						<div class="field_wrapper">
 							<select name="topic" class="field field_required field_topic ne">
 								<option value="">Select a theme</option>
-								<option value="продаж">Selling</option>
-								<option value="сервіс">Service</option>
+								<option value="Продаж">Selling</option>
+								<option value="Сервіс">Service</option>
 						   </select>
 							<p class="alarm alarm_topic"></p>
 						</div>
@@ -118,15 +118,15 @@
 							<p class="alarm alarm_third_name"></p>
 						</div>
 						
-						<p class="input_title">Contacts</p>
+						<p class="input_title">Contacts*</p>
 						
 						<div class="field_wrapper">
-							<input class="field field_required field_email" name="email" type="text" placeholder="E-mail*" />
+							<input class="field field_required field_email" name="email" type="text" placeholder="E-mail" />
 							<p class="alarm alarm_email"></p>
 						</div>
 						
 						<div class="field_wrapper">
-							<input class="field field_phone en" name="phone" type="text" placeholder="Phone number"/>
+							<input class="field field_required field_phone en" name="phone" type="text" placeholder="Phone number: +..."/>
 							<p class="alarm alarm_phone"></p>
 						</div>
 						
@@ -139,18 +139,12 @@
 					</div>
 					
 					<div class="part right_part">
-						<p class="input_title">Driver's license number</p>
+					
+						<p class="input_title">Brand*</p>
 						
 						<div class="field_wrapper">
-							<input class="field field_driver_license" name="driver_license" type="text" />
-							<p class="alarm alarm_driver_license"></p>
-						</div>
-						
-						<p class="input_title">Dealer*</p>
-						
-						<div class="field_wrapper">
-							<select name="dealer" class="field field_required field_dealer ne">
-								<option value="">Select a dealer</option>
+							<select name="brand" class="field field_required field_brand ne">
+								<option value="">Select a brand</option>
 								<option value="Ford">Ford</option>
 								<option value="Volvo">Volvo</option>
 								<option value="Jaguar">Jaguar</option>
@@ -158,6 +152,13 @@
 								<option value="Porsche">Porsche</option>
 								<option value="Bentley">Bentley</option>
 						    </select>
+							<p class="alarm alarm_brand"></p>
+						</div>
+						
+						<p class="input_title">Dealer*</p>
+						
+						<div class="field_wrapper">
+							<input class="field field_required field_dealer" name="dealer" type="text" />
 							<p class="alarm alarm_dealer"></p>
 						</div>
 						

@@ -34,6 +34,12 @@ $(document).ready(function(){
 	
 	//career page
 	careerContentSwitch();
+	
+	//philantropy page
+	philantropyCalendar();
+	
+	//configurator order page
+	confirmCheck();
 });
 
 //Show a spent server memory
@@ -109,11 +115,16 @@ function mask(){
 	});
 	
 	$(".field_phone.en").on("input", function(){
+		var el = $(this);
 		var value = $(this).val();
-
-		if($(this).val().search(/^[-()+ 0-9]{1,}$/) == -1){
-			value = value.replace(/[^-()+ 0-9]/gim, "");
-			$(this).val(value);
+		
+		if(el.val().search(/^\+/) != 0){
+			el.val("+");
+		}
+		
+		if(el.val().search(/^[+0-9]?$/) == -1){
+			value = value.replace(/[^+0-9]/gim, "");
+			el.val(value);
 		}
 	});
 	
@@ -143,7 +154,21 @@ function goForm(){
 	$(document).on("click", ".form_go", function(e){
 		e.preventDefault();
 		$(".url").val(document.location.href);
-		formValidation($(this).parent());
+		formValidation($(this).closest("form"));
+		
+		console.log($(this).closest("form"));
+	});
+	
+	$("#form_close").click(function(){
+		$("#form_pop_wrapper").fadeOut(300);
+	});
+	
+	$("#form_popup_cover").click(function(){
+		$("#form_pop_wrapper").fadeOut(300);
+	});
+	
+	$("#form_popup_cover").on("touchend", function(){
+		$("#form_pop_wrapper").fadeOut(300);
 	});
 }
 
@@ -589,5 +614,43 @@ function careerContentSwitch(){
 			$(".career_content_part#" + elData).addClass("active");
 			$("#career_content_wrapper").removeClass("opacity");
 		}, 210);
+	});
+}
+
+//#charity_calendar_box
+function philantropyCalendar(){
+	$("#charity_calendar_owner_field").click(function(){
+		$("#charity_calendar_box").fadeIn(200);
+	});
+	
+	$("#charity_calendar_box_close").click(function(){
+		$("#charity_calendar_box").fadeOut(200);
+	});
+}
+
+//#configurator_order_form_step_two_check handling
+function confirmCheck(){
+	$("#configurator_order_form_step_two_check").click(function(){
+		var el = $(this),
+			field = el.parent().find(".field_confirm");
+		
+		if(!el.hasClass("active")){
+			el.addClass("active");
+			field.val("true");
+			
+			if(el.attr("data-focus") == "true"){
+				fields(field);
+				warning(field);
+			}
+		}
+		else{
+			el.removeClass("active");
+			field.val("");
+			
+			if(el.attr("data-focus") == "true"){
+				fields(field);
+				warning(field);
+			}
+		}
 	});
 }

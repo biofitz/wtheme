@@ -257,7 +257,7 @@
 			</p>
 			<p>
 				Для заповнення заявки "Стати дилером" вам необхідно завантажити бланк за посиланням нижче, 
-				заповнити його в режимі оффлайн і відправити в архіві RAR або ZIP, разом із доданими файлами. 
+				заповнити його в режимі оффлайн і відправити в архіві ZIP, разом із доданими файлами. 
 			</p>
 			<p id="dealer_link_p">
 				<a href="<?php bloginfo('stylesheet_directory'); ?>/docs/become-a-dealer-form/Стати-дилером.docx">Завантажити бланк "Стати дилером"</a>
@@ -269,7 +269,7 @@
 				<div class="field_wrapper dealer_file_wrapper">
 					<input id="dealer_file" type="file"/>
 					<label for="dealer_file" id="field_dealer_button" class="field">Вкласти файл-архів <img src="<?php bloginfo('stylesheet_directory'); ?>/img/general/file_arrow.png" alt=""/></label>
-					<p class="alarm dealer_alarm_file">допустиме розширення: RAR або ZIP</p>
+					<p class="alarm dealer_alarm_file">допустиме розширення: ZIP</p>
 				</div>
 				
 				<a id="dealer_upload_btn" class="simple_form_go dealer_form_go button_blue" href="#">

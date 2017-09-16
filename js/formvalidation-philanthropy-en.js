@@ -77,7 +77,9 @@ function formValidation(form){
 	
 	if(alertMessage != ""){
 		console.log(alertMessage);
-		fieldFocus(form);
+		
+		if(!form.hasClass("focus"))
+			fieldFocus(form);
 
 		var dif = window.innerWidth > 991 ? 20 : 100;
 		
@@ -115,14 +117,20 @@ function addClass(el){
 }
 	
 function fieldFocus(form){
+	form.addClass("focus");
+	
 	form.find(".field_required").on("input", function(){
-		fields($(this));
-		warning($(this));
+		if(form.hasClass("focus")){
+			fields($(this));
+			warning($(this));
+		}
 	});
 	
 	form.find(".field_required").on("change", function(){
-		fields($(this));
-		warning($(this));
+		if(form.hasClass("focus")){
+			fields($(this));
+			warning($(this));
+		}
 	});
 	
 	$(document).on("click", ".prev_month", function(){
@@ -214,23 +222,7 @@ function sendForm(form, url){
         success: function(response){
 			console.log("response from server: " + response);
 			
-			function thnxShow(){
-				$("#form_preloader").fadeOut(300);
-				
-				$("#form_pop_wrapper").fadeIn(300);
-				
-				$("#form_close").click(function(){
-					$("#form_pop_wrapper").fadeOut(300);
-				});
-				
-				$("#form_popup_cover").click(function(){
-					$("#form_pop_wrapper").fadeOut(300);
-				});
-				
-				$("#form_popup_cover").on("touchend", function(){
-					$("#form_pop_wrapper").fadeOut(300);
-				});
-			}
+			form.removeClass("focus");
 			
 			form.find(".field").each(function(){
 				if(!$(this).hasClass("ne")){
@@ -239,8 +231,15 @@ function sendForm(form, url){
 					else
 						$(this).val("");
 				}
-				
-				$(".calendar_item").removeClass("active");
+			});
+			
+			$(".calendar_item").removeClass("active");
+			
+			$("#charity_calendar_box_text").text("Select a date");
+			
+			var selectElements = form.find("select").each(function(){
+				console.log($(this).find("option:first"));
+				console.log($(this).find("option:first").prop("selected", true));
 			});
 		
 			if(response == "Sent"){
@@ -266,4 +265,10 @@ function sendForm(form, url){
 			location.reload();
     	}
  	});
+}
+
+//"Thank you" pop-up open
+function thnxShow(){
+	$("#form_preloader").fadeOut(300);
+	$("#form_pop_wrapper").fadeIn(300);
 }

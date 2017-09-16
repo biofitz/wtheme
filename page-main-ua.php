@@ -19,7 +19,7 @@
 			<p id="config_choose_text">Оберіть авто згідно з критеріями пошуку</p>
 			
 			<div id="configurator_main_page" class="configurator">
-				<form id="configurator_form_main_page" class="configurator_form form" method="post" autocomplete="off" action="configurator-ua">
+				<form id="configurator_form_main_page" class="configurator_form form" method="post" autocomplete="off" action="/configurator-ua">
 					<label>Бренд<br/><input name="brand" placeholder="Бренд" value="any" readonly /></label>
 					<label>Модель<br/><input name="model" placeholder="Модель" value="any" readonly /></label>
 					<button id="config_btn_main_page">button</button>
@@ -125,9 +125,9 @@
 						
 						<div class="field_wrapper">
 							<select name="topic" class="field field_required field_topic ne">
-								<option value="">Виберіть тему</option>
-								<option value="продаж">Продаж</option>
-								<option value="сервіс">Сервіс</option>
+								<option value="">Оберіть тему</option>
+								<option value="Продаж">Продаж</option>
+								<option value="Сервіс">Сервіс</option>
 						   </select>
 							<p class="alarm alarm_topic"></p>
 						</div>
@@ -149,15 +149,15 @@
 							<p class="alarm alarm_third_name"></p>
 						</div>
 						
-						<p class="input_title">Контактні дані</p>
+						<p class="input_title">Контактні дані*</p>
 						
 						<div class="field_wrapper">
-							<input class="field field_required field_email" name="email" type="text" placeholder="E-mail*" />
+							<input class="field field_required field_email" name="email" type="text" placeholder="E-mail" />
 							<p class="alarm alarm_email"></p>
 						</div>
 						
 						<div class="field_wrapper">
-							<input class="field field_phone ua" name="phone" type="text" placeholder="Телефон: +38..."/>
+							<input class="field field_required field_phone ua" name="phone" type="text" placeholder="Телефон: +38..."/>
 							<p class="alarm alarm_phone"></p>
 						</div>
 						
@@ -170,18 +170,12 @@
 					</div>
 					
 					<div class="part right_part">
-						<p class="input_title">Номер водійських прав</p>
+					
+						<p class="input_title">Бренд*</p>
 						
 						<div class="field_wrapper">
-							<input class="field field_driver_license" name="driver_license" type="text" />
-							<p class="alarm alarm_driver_license"></p>
-						</div>
-						
-						<p class="input_title">Дилер*</p>
-						
-						<div class="field_wrapper">
-							<select name="dealer" class="field field_required field_dealer ne">
-								<option value="">Виберіть дилера</option>
+							<select name="brand" class="field field_required field_brand ne">
+								<option value="">Оберіть бренд</option>
 								<option value="Ford">Ford</option>
 								<option value="Volvo">Volvo</option>
 								<option value="Jaguar">Jaguar</option>
@@ -189,6 +183,13 @@
 								<option value="Porsche">Porsche</option>
 								<option value="Bentley">Bentley</option>
 						    </select>
+							<p class="alarm alarm_brand"></p>
+						</div>
+						
+						<p class="input_title">Дилер*</p>
+						
+						<div class="field_wrapper">
+							<input class="field field_required field_dealer" name="dealer" type="text" />
 							<p class="alarm alarm_dealer"></p>
 						</div>
 						

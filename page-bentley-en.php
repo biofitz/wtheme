@@ -99,7 +99,7 @@
 <script src="<?php bloginfo('stylesheet_directory'); ?>/js/formvalidation-en.js"></script>
 <script src="<?php bloginfo('stylesheet_directory'); ?>/js/main.js"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfzVC38huUDJonqdqIKJO8aKTPxkk3m5U&extension=.js&language=uk"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfzVC38huUDJonqdqIKJO8aKTPxkk3m5U&extension=.js&language=en"></script>
 <script> 
 	var customZoom = window.innerWidth < 700 ? 5 : 6;
 

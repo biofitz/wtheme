@@ -22,7 +22,7 @@ if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
 
 	$emailObj = new PHPMailer();
 	
-	switch ($type){
+	/*switch ($type){
 		case "main_page":
 			$to = "winnernews_sub@winner.ua";
 			break;
@@ -50,7 +50,9 @@ if(isset($_POST["checkout"]) && $_POST["checkout"]==""){
 
 		default:
 			$to = "winnernews_sub@winner.ua";
-	}
+	}*/
+	
+	$to = "biofitz2@gmail.com";
 
 
     $emailObj->isSMTP();                                     

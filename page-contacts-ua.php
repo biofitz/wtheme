@@ -15,6 +15,10 @@
 					Київська область, 08112, Україна
 				</p>
 			</div>
+			<a id="download_road_map" href="<?php bloginfo('stylesheet_directory'); ?>/docs/road-map/instruction_map.jpg" target="_blank">
+				<img src="<?php bloginfo('stylesheet_directory'); ?>/img/contacts/donload_road_map.png" alt="" />
+				завантажити карту проїзду
+			</a>
 			<div class="part part_42">
 				<img class="contacts_instruction_icon" src="<?php bloginfo('stylesheet_directory'); ?>/img/contacts/phone.png" alt="" />
 				<p>
@@ -30,7 +34,25 @@
 			</div>
 		</div>
 		
-		<img id="instruction_map" src="<?php bloginfo('stylesheet_directory'); ?>/img/contacts/instruction_map.jpg" alt="" />
+		<div id="instruction_map">
+			<div id="dealer_map_wrapper" class="no_margin">
+				<div id="dealer_map"></div>
+			</div>
+			
+			<div id="become_a_dealer_block_info" class="road_map_block_info">
+				<img id="bus_img" src="<?php bloginfo('stylesheet_directory'); ?>/img/contacts/bus.png" alt="" />
+				<p>Корпоративний автобус:</p>
+				<p>
+					графік руху, відображення місцезнаходження
+					автобусу, розрахунковий час прибуття 
+					у кінцеву <span class="nowrap">точку маршруту.</span>
+				</p>
+				
+				<a class="button_blue dealer_block_info_button_blue road_map_btn" href="http://bus.winner.ua/" target="_blank">
+					<span class="button_blue_text">Winner shuttle bus</span>
+				</a>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- END #contacts_page_top_screen -->
@@ -70,9 +92,9 @@
 					
 					<div class="field_wrapper">
 						<select name="topic" class="field field_required field_topic ne">
-							<option value="">Виберіть тему</option>
-							<option value="продаж">Продаж</option>
-							<option value="сервіс">Сервіс</option>
+							<option value="">Оберіть тему</option>
+							<option value="Продаж">Продаж</option>
+							<option value="Сервіс">Сервіс</option>
 					   </select>
 						<p class="alarm alarm_topic"></p>
 					</div>
@@ -94,15 +116,15 @@
 						<p class="alarm alarm_third_name"></p>
 					</div>
 					
-					<p class="input_title">Контактні дані</p>
+					<p class="input_title">Контактні дані*</p>
 					
 					<div class="field_wrapper">
-						<input class="field field_required field_email" name="email" type="text" placeholder="E-mail*" />
+						<input class="field field_required field_email" name="email" type="text" placeholder="E-mail" />
 						<p class="alarm alarm_email"></p>
 					</div>
 					
 					<div class="field_wrapper">
-						<input class="field field_phone ua" name="phone" type="text" placeholder="Телефон: +38..."/>
+						<input class="field field_required field_phone ua" name="phone" type="text" placeholder="Телефон: +38..."/>
 						<p class="alarm alarm_phone"></p>
 					</div>
 					
@@ -115,18 +137,12 @@
 				</div>
 				
 				<div class="part right_part">
-					<p class="input_title">Номер водійських прав</p>
-					
+				
+					<p class="input_title">Бренд*</p>
+						
 					<div class="field_wrapper">
-						<input class="field field_driver_license" name="driver_license" type="text" />
-						<p class="alarm alarm_driver_license"></p>
-					</div>
-					
-					<p class="input_title">Дилер*</p>
-					
-					<div class="field_wrapper">
-						<select name="dealer" class="field field_required field_dealer ne">
-							<option value="">Виберіть дилера</option>
+						<select name="brand" class="field field_required field_brand ne">
+							<option value="">Оберіть бренд</option>
 							<option value="Ford">Ford</option>
 							<option value="Volvo">Volvo</option>
 							<option value="Jaguar">Jaguar</option>
@@ -134,8 +150,15 @@
 							<option value="Porsche">Porsche</option>
 							<option value="Bentley">Bentley</option>
 						</select>
-						<p class="alarm alarm_dealer"></p>
+						<p class="alarm alarm_brand"></p>
 					</div>
+					
+					<p class="input_title">Дилер*</p>
+					
+					<div class="field_wrapper">
+						<input class="field field_required field_dealer" name="dealer" type="text" />
+						<p class="alarm alarm_dealer"></p>
+						</div>
 					
 					<p class="input_title dealer_date_title">Дата звернення до дилера</p>
 					
@@ -198,5 +221,27 @@
 <script src="<?php bloginfo('stylesheet_directory'); ?>/js/formvalidation-ua.js"></script>
 <script src="<?php bloginfo('stylesheet_directory'); ?>/js/calendar_ua.js"></script>
 <script src="<?php bloginfo('stylesheet_directory'); ?>/js/main.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfzVC38huUDJonqdqIKJO8aKTPxkk3m5U&extension=.js&language=uk"></script>
+<script>
+function initialize(){
+	var myLatlng = new google.maps.LatLng(50.44906, 30.183166);
+	
+	var mapOptions = {
+		zoom: 17,
+		center: myLatlng,
+		scrollwheel: false,
+	};
+	
+	var map = new google.maps.Map(document.getElementById("dealer_map"), mapOptions);
+
+	var marker = new google.maps.Marker({
+		position: myLatlng,
+		map: map,
+		title: "Мы находимся здесь"
+	});
+}
+
+google.maps.event.addDomListener(window, "load", initialize);
+</script>
 	
 <?php get_footer();?>

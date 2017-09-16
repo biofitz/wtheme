@@ -70,6 +70,8 @@ function createCalendar(innerYear, innerMonth, innerDay){
 				createCalendar(innerYear, innerMonth-1, 1);
 			
 			$(this).closest(".calendar_block").find(".field_date_of_appeal").val("не вказано");
+			
+			$("#charity_calendar_box_text").text("Select a date");
 				
 			changed = true;
 		}
@@ -88,6 +90,8 @@ function createCalendar(innerYear, innerMonth, innerDay){
 			
 			$(this).closest(".calendar_block").find(".field_date_of_appeal").val("не вказано");
 			
+			$("#charity_calendar_box_text").text("Select a date");
+			
 			changed = true;
 		}
 	});
@@ -104,12 +108,61 @@ function createCalendar(innerYear, innerMonth, innerDay){
 		if(el.hasClass("active")){
 			el.removeClass("active");
 			date = "не вказано";
+			
+			$("#charity_calendar_box_text").text("Select a date");
 		}
 		
 		else{
 			$(".calendar_item").removeClass("active");
 			el.addClass("active");
-			date = "число: " + el.text() + "; місяць: " + el.closest(".calendar").find(".cmn").text() + "; рік: " + el.closest(".calendar").find(".calendar_year").text();
+			
+			var monthWord = el.closest(".calendar").find(".cmn").text(),
+				monthNum;
+			
+			switch(monthWord){
+				case "January":
+					monthNum = "01";
+					break;
+				case "February":
+					monthNum = "02";
+					break;
+				case "March":
+					monthNum = "03";
+					break;
+				case "April":
+					monthNum = "04";
+					break;
+				case "May":
+					monthNum = "05";
+					break;
+				case "June":
+					monthNum = "06";
+					break;
+				case "July":
+					monthNum = "07";
+					break;
+				case "August":
+					monthNum = "08";
+					break;
+				case "September":
+					monthNum = "09";
+					break;
+				case "October":
+					monthNum = "10";
+					break;
+				case "November":
+					monthNum = "11";
+					break;
+				case "December":
+					monthNum = "12";
+					break;
+			}
+			
+			var zero = (el.text() < 10) ? "0" : "";
+			date = zero + el.text() + "." + monthNum + "." +  el.closest(".calendar").find(".calendar_year").text();
+			
+			var dateForView = monthNum + "/" + zero + el.text() + "/" + el.closest(".calendar").find(".calendar_year").text();
+			$("#charity_calendar_box_text").text(dateForView);
 		}
 		
 		el.closest(".calendar_block").find(".field_date_of_appeal").val(date);

@@ -441,6 +441,26 @@
 				
 				<div class="part_parent_block">
 					<div class="part left_part">
+						<p class="history_date">2015</p>
+					
+						<div class="history_content_block">
+							<div class="history_content_block_text">
+								<h2 class="brand_h2">
+									«Віннер» започатковує<br/>  нову стратегію «Хвилі»<br/> 
+									з вірою у подальший зріст економіки України 
+									та проводить масштабні зібрання всіх співробітників
+								</h2>
+							</div>
+							<div class="history_img_block">
+								<img src="<?php bloginfo('stylesheet_directory'); ?>/img/history/history_img_3_0.jpg" alt="" />
+							</div>
+						</div>
+					</div>
+					<div class="part"></div>
+				</div>
+				
+				<div class="part_parent_block">
+					<div class="part right_part">
 						<p class="history_date">2016</p>
 					
 						<div class="history_content_block">
@@ -451,8 +471,7 @@
 									компанією Bentley 
 								</h2>
 								<p>
-									та стає ексклюзивним представником<br/>
-									бренду в Україні 
+									та стає ексклюзивним представником бренду в Україні 
 								</p>
 							</div>
 							<div class="history_img_block">
@@ -464,7 +483,7 @@
 				</div>
 				
 				<div class="part_parent_block">
-					<div class="part right_part">
+					<div class="part left_part">
 						<p class="history_date">2017</p>
 					
 						<div class="history_content_block">
@@ -488,8 +507,8 @@
 				</div>
 				
 				<div class="part_parent_block">
-					<div class="part left_part">
-						<p class="history_date">2019</p>
+					<div class="part right_part">
+						<p class="history_date"><span>2018</span><span class="c"> - </span><span>2019</span></p>
 					
 						<div class="history_content_block">
 							<div class="history_content_block_text">

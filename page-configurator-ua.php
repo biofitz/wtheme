@@ -14,20 +14,25 @@
 		echo "<p id='response_models' class='data_from_mp'>$model</p>";
 	}
 	?>
-
-	<!--<p id="response_models"></p>-->
 	
-	<form id="configurator_form" class="configurator_form form" autocomplete="off">
-		<label>Бренд<br/><input name="brand" placeholder="Бренд" value="any"  /></label>
+	<!-- BEGIN #configurator_form -->
+	<form id="configurator_form" class="configurator_form form">
+		<label>Бренд<br/><input name="brand" placeholder="Бренд" value="any" readonly /></label>
 		<label>Модель<br/><input name="model" placeholder="Модель" value="any" readonly /></label>
 		<label>Тип палива<br/><input name="fuel" placeholder="Тип палива" value="any" readonly /></label>
 		<label>Коробка передач<br/><input name="gears_types" placeholder="Коробка передач" value="any" readonly /></label>
 		<label>Тип кузова<br/><input name="chasis" placeholder="Тип кузова" value="any" readonly /></label>
-		<label>Максимальна ціна<br/><input name="min_price" placeholder="Максимальна ціна" value="any" readonly /></label>
-		<label>Мінімальна ціна<br/><input name="max_price" placeholder="Мінімальна ціна" value="any" readonly /></label>
-		<!--<button id="config_btn">button</button>-->
+		<label>Мінімальна ціна<br/><input name="min_price" placeholder="Мінімальна ціна" value="any" readonly /></label>
+		<label>Максимальна ціна<br/><input name="max_price" placeholder="Максимальна ціна" value="any" readonly /></label>
+		<label>Місто<br/><input name="dealer_cities" placeholder="Місто" value="any" readonly /></label>
 	</form>
+	<!-- END #configurator_form -->
 	
+	<!-- BEGIN #configurator_order_form_step_one -->
+	<form id="configurator_order_form_step_one" method="post" action="/configurator-order"></form>
+	<!-- END #configurator_order_form_step_one -->
+	
+	<!-- BEGIN #configurator_wrapper -->
 	<div id="configurator_wrapper">
 		
 		<button id="configurator_turn">Відкрити опції</button>
@@ -77,6 +82,12 @@
 						<p class="option cf_chasis any active" data-name="chasis" data-value="any">Будь-який</p>
 						<div class="select_block select_chasis"></div>
 					</div>
+					
+					<div class="select_wrapper select_dealer_cities_wrapper">
+						<p class="select_title">Місто</p>
+						<p class="option cf_dealer_cities any active" data-name="dealer_cities" data-value="any">Будь-яке</p>
+						<div class="select_block select_dealer_cities"></div>
+					</div>
 				</div>
 				
 				<button class="get_group">Знайти авто</button>
@@ -118,9 +129,10 @@
 									<th></th>
 									<th>VIN</th>
 									<th>Колір</th>
-									<th>Ціна</th>
+									<th><span class="price_popup_open">Ціна <img src="<?php bloginfo('stylesheet_directory'); ?>/img/configurator/question.svg" alt="" /></span></th>
 									<th>Дилер</th>
-									<th>Місто</th>
+									<th><span class="city_popup_open">Місто <img src="<?php bloginfo('stylesheet_directory'); ?>/img/general/tick_blue.svg" alt="" /></span></th>
+									<th>Замовити авто</th>
 								</tr>
 							</thead>
 							<tbody id="vehicles_tbody"></tbody>
@@ -131,6 +143,45 @@
 		</div>
 	
 	</div>
+	<!-- END #configurator_wrapper -->
+	
+	<!-- BEGIN #price_popup_wrapper -->
+	<div id="price_popup_wrapper">
+		<div id="price_popup_cover"></div>
+		<div id="price_popup">
+			<img id="price_popup_close" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/close_cross.svg" alt="закрити">
+			
+			<div id="price_popup_text">
+				<p>
+					Вказані ціни на автомобілі є стандартними.
+					<span class="nowrap">За детальною</span> інформацією та спеціальними
+					пропозиціями зверніться до <span class="nowrap">найближчого дилера.</span>
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- END #price_popup_wrapper -->
+	
+	<!-- BEGIN #city_popup_wrapper -->
+	<div id="city_popup_wrapper">
+		<div id="city_popup_cover"></div>
+		<div id="city_popup">
+			<img id="city_popup_close" src="<?php bloginfo('stylesheet_directory'); ?>/img/general/close_cross.svg" alt="закрити">
+			
+			<div id="city_popup_text">
+				<div id="city_popup_text_inner">
+					<p>Фільтр по містам:</p>
+					<p id="only_one_city_text">лише <span></span></p>
+					
+					<div class="select_wrapper select_popup_cities_wrapper">
+						<p class="option cf_popup_cities any active" data-name="popup_cities" data-value="any">Будь-яке</p>
+						<div class="select_block select_popup_cities"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END #city_popup_wrapper -->
 
 <?php get_sidebar("footer-ua");?>
 

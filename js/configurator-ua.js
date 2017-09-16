@@ -16,13 +16,16 @@ var configurator = {
 		this.getGroupUrl();
 		this.brands();
 		this.groupRequestUrl = "vehicles_group/any/any/any/any/any/any/any";
-		//this.cntAdd = 20;
 		this.cntAdd = (window.innerWidth > 600) ? 20 : 10;
 		this.showMoreGroups();
 		this.searchGroupBtn();
 		this.openOptions = "Відкрити опції";
 		this.closeOptions = "Закрити опції";
-		this.getVehicles();
+		this.getVehicles(),
+		this.pricePopup(),
+		this.canAppendCitiesInPopup = false,
+		this.cityPopup(),
+		this.order()
 	},
 	
 	firstLoad: 0,
@@ -149,12 +152,16 @@ var configurator = {
 		if(value.search(",") == 0)
 			value = value.replace(",", "");
 			
-		configurator.valInput(input, value);
+		configurator.valInput(input, value, el);
 	},
 	
-	valInput: function(input, value){
+	valInput: function(input, value, el){
 		input.val(value);
-		configurator.searchMethod();
+		
+		if(!el.hasClass("cf_popup_cities"))
+			configurator.searchMethod();
+		else if(el.hasClass("cf_popup_cities"))
+			configurator.mapPopupCities(el);
 	},
 	
 	showModels: function(el){	
@@ -183,6 +190,7 @@ var configurator = {
 		configurator.advansedRequest("gears_types", "gear_type_id", "gear_type");
 		configurator.advansedRequest("chasis", "chasis", "chasis");
 		configurator.advansedRequest("price_limit", "min_price", "max_price");
+		configurator.advansedRequest("dealer_cities", "dealer_city", "dealer_city");
 	},
 	
 	advansedRequest: function(type, prop1, prop2){
@@ -286,7 +294,8 @@ var configurator = {
 			gearsTypes = configurator.form.find("input[name=gears_types]").val(),
 			minPrice = configurator.form.find("input[name=min_price]").val(),
 			maxPrice = configurator.form.find("input[name=max_price]").val();
-		
+			
+		configurator.dealerCities = configurator.form.find("input[name=dealer_cities]").val() != "any" ? "&dealer_city=" + encodeURIComponent(configurator.form.find("input[name=dealer_cities]").val()) : "";
 		configurator.groupRequestUrl = "vehicles_group/" + brand + "/" + model + "/" + fuel + "/" + chasis + "/" + gearsTypes + "/" + minPrice + "/" + maxPrice;
 	},
 	
@@ -305,12 +314,13 @@ var configurator = {
 	
 	addGroupResponse: function(){
 		$.ajax({
-			url: configurator.url + configurator.groupRequestUrl + "?" + configurator.apiKey,
+			url: configurator.url + configurator.groupRequestUrl + "?" + configurator.apiKey + configurator.dealerCities,
 			type: "GET",
 			dataType: "json",
 			crossDomain: true,
 			beforeSend: function(){
-				$("#result_canvas").find(".cover").show().find("img").hide().fadeIn(2000);							
+				$("#result_canvas").find(".cover").show().find("img").hide().fadeIn(2000);	
+				console.log("Запрос на группы: " + configurator.url + configurator.groupRequestUrl + "?" + configurator.apiKey + configurator.dealerCities);				
 			},
 			success: function(response){
 				//setTimeout(function(){
@@ -364,7 +374,7 @@ var configurator = {
 					fuelString = fuel;
 			}
 			
-			var priveFormat = (response[i].price.toString().replace(/\s/g, "")).toString().split("").reverse().join("").replace(/([0-9]{3})/g, "$1 ").split('').reverse().join("");
+			var priсeFormat = (response[i].price.toString().replace(/\s/g, "")).toString().split("").reverse().join("").replace(/([0-9]{3})/g, "$1 ").split('').reverse().join("");
 			
 			
 			$("#result_canvas_inner").append(
@@ -401,7 +411,7 @@ var configurator = {
 								"</div>" +
 							"</div>" +
 							"<div class='info_part'>" +
-								"<p class='model_group_price'><span>Ціна від:</span> " + "<span>" + priveFormat + " <span>грн</span></span></p>" +
+								"<p class='model_group_price'><span>Ціна від:</span> " + "<span>" + priсeFormat + " <span>грн</span></span></p>" +
 								"<button class='model_group_count' data-brand-id='" +  response[i].brand_id + "' data-model='" +  response[i].model + "' data-fuel='" + response[i].fuel + 
 								"' data-chasis='" +  response[i].chasis + "' data-gear-id='" +  response[i].gear_id + "' data-year='" +  response[i].year + "' data-displacement='" +  
 								response[i].displacement + "' data-power='" +  response[i].power + "' data-version='" +  response[i].version + "'>" + response[i].count + " авто в наявності</button>" +
@@ -505,12 +515,13 @@ var configurator = {
 			);
 			
 			$.ajax({
-				url: configurator.url + url + "&" + configurator.apiKey,
+				//url: configurator.url + url + "&" + configurator.apiKey,
+				url: configurator.url + url + "&" + configurator.apiKey + configurator.dealerCities,
 				type: "GET",
 				dataType: "json",
 				crossDomain: true,
 				beforeSend: function(){
-												
+					console.log("Запрос на автомобили " + configurator.url + url + "&" + configurator.apiKey + configurator.dealerCities);							
 				},
 				success: function(response){
 					console.log(response);
@@ -518,26 +529,9 @@ var configurator = {
 						configurator.smthWrong(response);
 						return;
 					}
-
+					
 					for(var i in response){
-						var priveFormat = (response[i].price.toString().replace(/\s/g, "")).toString().split("").reverse().join("").replace(/([0-9]{3})/g, "$1 ").split('').reverse().join("");
-						
-						var dealer = "";
-						if(response[i].dealer_url == undefined || response[i].dealer_url == "")
-							dealer = "<td data-cell='Дилер'>" + response[i].dealer_name + "</td>";
-						else
-							dealer = "<td data-cell='Дилер'><a href='" + response[i].dealer_url + "' target='_blank'>" + response[i].dealer_name + "</a></td>";
-						
-						$("#vehicles_tbody").append(
-							"<tr>" +
-								"<td data-cell='Зображення'><span class='small_cars_wrapper'><img class='small_cars' src=" + response[i].img + " alt='' /></span></td>" +
-								"<td data-cell='VIN'>" + response[i].vin + "</td>" +
-								"<td data-cell='Колір'>" + response[i].color_name_en + "</td>" +
-								"<td data-cell='Ціна'>" + priveFormat + " грн</td>" +
-								dealer +
-								"<td data-cell='Місто'>" + response[i].dealer_city + "</td>" +
-							"</tr>"
-						);
+						configurator.createVehicles(response[i]);
 					}
 					
 					$("#vehicles_popup").fadeIn(200);
@@ -548,14 +542,83 @@ var configurator = {
 					configurator.smthWrong(response);
 				}
 			});
+			
+			configurator.canAppendCitiesInPopup = true;
 		});
 		
 		$("#vehicles_popup").on("click", ".cover", function(){
 			$("#vehicles_popup").fadeOut(200);
+			$(".select_popup_cities").html("");
 		});
 		$("#vehicles_popup").on("click", ".close_cross", function(){
 			$("#vehicles_popup").fadeOut(200);
+			$(".select_popup_cities").html("");
 		});
+	},
+	
+	createVehicles: function(i){
+		var priсeFormat = (i.price.toString().replace(/\s/g, "")).toString().split("").reverse().join("").replace(/([0-9]{3})/g, "$1 ").split('').reverse().join("");
+									
+		var dealer = "";
+		if(i.dealer_url == undefined || i.dealer_url == "")
+			dealer = "<td data-cell='Дилер'>" + i.dealer_name + "</td>";
+		else
+			dealer = "<td data-cell='Дилер'><a href='" + i.dealer_url + "' target='_blank'>" + i.dealer_name + "</a></td>";
+		
+		var fuel = i.fuel,
+			fuelString = fuel;
+			
+		switch(fuel){
+			case "H":
+				fuelString = "Гібрид";
+				break;
+				
+			case "D":
+				fuelString = "Дизель";
+				break;
+				
+			case "P":
+				fuelString = "Бензин";
+				break;
+				
+			default: 
+				fuelString = fuel;
+		}
+		
+		$("#vehicles_tbody").append(
+			"<tr>" +
+				"<td data-cell='Зображення'><span class='small_cars_wrapper'><img class='small_cars' src=" + i.img + " alt='' /></span></td>" +
+				"<td data-cell='VIN'>" + i.vin + "</td>" +
+				"<td data-cell='Колір'>" + i.color_name_en + "</td>" +
+				"<td data-cell='Ціна' class='price_popup_open'>" + priсeFormat + " грн</td>" +
+				dealer +
+				"<td data-cell='Місто' class='city_popup_open'>" + i.dealer_city + "</td>" +
+				"<td data-cell='Замовити авто' class='conf_order_th'><span class='conf_order_button'" + 
+					"data-img='" + i.img + "'" + 
+					"data-brand='" + i.brand + "'" + 
+					"data-model='" + i.model + "'" + 
+					"data-vin='" + i.vin + "'" + 
+					"data-id='" + i.id + "'" +
+					"data-price='" + priсeFormat + "'" + 
+					"data-release_year='" + i.year + "'" + 
+					"data-chasis='" + i.chasis + "'" + 
+					"data-color_id='" + i.color_id + "'" + 
+					"data-color_name_en='" + i.color_name_en + "'" + 
+					"data-dealer_city='" + i.dealer_city + "'" + 
+					"data-dealer_code='" + i.dealer_code + "'" + 
+					"data-dealer_name='" + i.dealer_name + "'" + 
+					"data-dealer_url='" + i.dealer_url + "'" + 
+					"data-displacement='" + i.displacement + "'" + 
+					"data-fuel='" + fuelString + "'" + 
+					"data-gear_id='" + i.gear_id + "'" + 
+					"data-gear_name='" + i.gear_name + "'" + 
+					"data-gear_type_id='" + i.gear_type_id + "'" + 
+					"data-market_type='" + i.market_type + "'" + 
+					"data-power='" + i.power + "'" + 
+					"data-version='" + i.version + "'" + 
+				">Замовити</span></td>" +
+			"</tr>"
+		);
 	},
 	
 	turn: function(){
@@ -584,5 +647,139 @@ var configurator = {
 	smthWrong: function(response){
 		alert("Сталася помилка. Перезавантажте сторінку та спробуйте ще раз.");
 		console.log(response);
+	},
+	
+	pricePopup: function(){
+		$(document).on("click", "span.price_popup_open", function(){
+			$("#price_popup_wrapper").fadeIn(300);
+		});
+		
+		$(document).on("click", "td.price_popup_open", function(){
+			if(window.innerWidth <= 991)
+				$("#price_popup_wrapper").fadeIn(300);
+		});
+		
+		$(document).on("click", "#price_popup_close", function(){
+			$("#price_popup_wrapper").fadeOut(300);
+		});
+		
+		$(document).on("click touchend", "#price_popup_cover", function(){
+			$("#price_popup_wrapper").fadeOut(300);
+		});
+	},
+	
+	cityPopup: function(){
+		$(document).on("click", "span.city_popup_open", function(){
+			cityPopupOpen();
+		});
+		
+		$(document).on("click", "td.city_popup_open", function(){
+			if(window.innerWidth <= 991)
+				cityPopupOpen();
+		});
+		
+		function cityPopupOpen(){
+			if(configurator.canAppendCitiesInPopup == true){
+				//console.log(configurator.canAppendCitiesInPopup);
+				configurator.canAppendCitiesInPopup = false;
+				
+				$(document).find(".option.cf_popup_cities.any").addClass("active");
+				
+				var cityArray = [];
+				
+				$("#vehicles_tbody").find("td.city_popup_open").each(function(){
+					var text = $(this).text();
+					
+					/*if(cityArray.indexOf(text) == -1){
+						cityArray.push(text);
+						$(".select_popup_cities").append(
+							"<li class='option cf_popup_cities' data-name='popup_cities' data-value='" + text +"'>" + text + "</li>"
+						);
+					}*/
+					
+					if(cityArray.indexOf(text) == -1){
+						cityArray.push(text);
+						console.log(cityArray);
+					}
+				});
+				
+				if(cityArray.length > 1){
+					for(var i in cityArray){
+						$(".select_popup_cities_wrapper").show();
+						$("#only_one_city_text").hide();
+						
+						$(".select_popup_cities").append(
+							"<li class='option cf_popup_cities' data-name='popup_cities' data-value='" + cityArray[i] +"'>" + cityArray[i] + "</li>"
+						);
+					}
+				}
+				else{
+					$(".select_popup_cities_wrapper").hide();
+					$("#only_one_city_text").find("span").text(cityArray[0]);
+					$("#only_one_city_text").show();
+				}
+			}
+
+			$("#city_popup_wrapper").fadeIn(300);
+		}
+		
+		$(document).on("click", ".option.cf_popup_cities", function(){
+			configurator.activeItem($(this));
+		});
+		
+		$(document).on("click", "#city_popup_close", function(){
+			$("#city_popup_wrapper").fadeOut(300);
+		});
+		
+		$(document).on("click touchend", "#city_popup_cover", function(){
+			$("#city_popup_wrapper").fadeOut(300);
+		});
+	},
+	
+	mapPopupCities: function(el){
+		var cityArray = [];
+		
+		$(".select_popup_cities_wrapper").find(".option.cf_popup_cities.active").each(function(){
+			cityArray.push($(this).attr("data-value"));
+		});
+		
+		console.log(cityArray);
+		
+		if(cityArray.indexOf("any") != -1){
+			$("#vehicles_tbody").find("td.city_popup_open").each(function(){
+				$(this).parent("tr").show();
+			});
+		}
+		else{
+			$("#vehicles_tbody").find("td.city_popup_open").each(function(){
+				if(cityArray.indexOf($(this).text()) == -1)
+					$(this).parent("tr").hide();
+				else
+					$(this).parent("tr").show();
+			});
+		}
+	},
+	
+	order: function(){
+		$(document).on("click", ".conf_order_button", function(){
+			//console.log($(this).data());
+			
+			$("#form_preloader").fadeIn(300);
+			
+			var obj = $(this).data(),
+				form = $("#configurator_order_form_step_one");
+				
+			form.html("");
+			
+			for(var i in obj){
+				console.log(i + ": " + obj[i]);
+				
+				form.append(
+					"<label>" + i + "<br/><input name='" + i + "' value='" + obj[i] + "' /></label><br/>"
+				);
+			}
+			
+			form.submit();
+		});
 	}
 }

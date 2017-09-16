@@ -8,10 +8,6 @@
 	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-	<!--<meta property="og:type" content="website"/>
-	<meta property="og:site_name" content="Winner"/>
-	<meta property="og:title" content="Winner"/>
-	<meta property="og:description" content="Офіційний дистриб'ютор автомобілів Ford, Volvo, Jaguar, Land Rover, Porsche, Bentley"/>-->
 	<meta property="og:image" content="<?php bloginfo('stylesheet_directory'); ?>/img/general/folder.jpg" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/img/general/favicon.ico"/>
 	
@@ -62,10 +58,15 @@
 			
 				<ul id="lang_turn" class="outer_menu_item"><?php pll_the_languages(array("show_flags"=>1, "show_names"=>1)); ?></ul>
 				
-				<div id="head_course_wrapper" class="outer_menu_item">
+				<div id="head_course_wrapper" class="outer_menu_item hcw_ua">
 					<div id="head_course_hidden"><?php echo $apiData;?></div>
 					<p id="head_course"></p>
 				</div>
+				
+				<a id="head_course_archive" class="outer_menu_item ca_ua" href="<?php bloginfo('stylesheet_directory'); ?>/docs/currency/currency-archive-ua.pdf" target="_blank">
+					<img src="<?php bloginfo('stylesheet_directory'); ?>/img/general/head_course_archive_arrow.png" alt="" />
+					архів валют
+				</a>
 				
 				<div id="top_menu">
 					<?php wp_nav_menu(array("menu" => "top_menu_ua")); ?>
